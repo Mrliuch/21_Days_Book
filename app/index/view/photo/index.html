@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="__STATIC__/index/css/styleup.css">
+  <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<script>  
+    window.onload = function(){  
+        setInterval(getime,1000);  
+    };  
+    function getime(){  
+        var date = new Date();  
+		var Day=date.getDay()  
+		var month =date.getMonth();  
+		var day = date.getDate(); // 获取日  
+		var week = date.getDay(); 
+		document.getElementById('time').value=month+'月'+day+'日';
+	}
+</script>
+<body>
+
+  <section class="container">
+    <div class="login">
+      <h1>个人信息</h1>
+      <form method="post" action="{:url('loada')}">
+		<font size='3px'><strong>请选择你的打卡类别:</strong></font>
+		</br>
+		<select name="lb" name="a"> 
+					<option value="共进早餐打卡">共进早餐打卡</option> 
+					<option value="健康跑步打卡" >健康跑步打卡</option> 
+					<option value="每日读书打卡">每日读书打卡</option> 
+					<option value="内务标兵打卡">内务标兵打卡</option> 
+					<option value="私人订制打卡">私人订制打卡</option> 
+					<option value="特长技能打卡">特长技能打卡</option> 
+					<option value="自主学习打卡">自主学习打卡</option> 
+					</select> 
+					</br></br>
+					<input  class='button' disabled="disabled" type='button' onclick='getime()'value='打卡记录'></br>
+					<input type='text' id='time' name="rq" /></br></br>
+					<input class='button' type='text' placeholder="作品介绍" name="js" /><font color='red'>*介绍你们的照片</font>
+						</br></br>
+        </p>
+        <p class="submit"><input type="submit" name="commit" value="确认无误" action=' '></p>
+      </form>
+    </div>
+  </section>
+
+</body>
+</html>

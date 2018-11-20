@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="icon" href="images/favicon.png">
+	<title>打卡照片</title>
+
+    {include file='public/head' /}
+
+</head>
+<body onLoad="goPage(1,5);">
+
+	<!-- navbar -->
+
+	<!-- end sidebar cart -->
+
+	<!-- product -->
+
+	<div class="product segments-page" onLoad="goPage(1,10);" id="page">
+		<div class="container" >
+            <center><h1>21天打卡活动</h1></center><br>
+			<div class="section-title"><center>
+                当前用户：{$nam}  &nbsp;&nbsp;&nbsp; <a href="{:url('login/logout')}"><span style="color: blue">退出登录</span</a><a href="{:url('photo/guanyu')}">&nbsp;&nbsp;&nbsp;<span style="color: blue">关于我们</span></a><br>
+				</center>
+                <br><center>
+                <h5><a href="{:url('photo/upload')}"><button>上传打卡</button><h7>&nbsp;&nbsp;</h7></a></h5></center>
+			</div><br>
+
+<center><h3>活动照片：</h3></center>
+
+<table id="idData">     
+
+<?php
+use app\index\model\Photodate;
+
+$user = Photodate::name('photo') ->select();
+
+
+
+
+        
+foreach(array_reverse($user) as $users){?>
+        <tr>
+            <td>
+
+					<div class="content">
+						<center><img src="<?php echo '__STATIC__/' . $users['path'];?>" alt="活动照片"></center>
+                        上传者：<?php echo $users['name'];?>&nbsp;&nbsp;&nbsp;上传时间：<?php echo  date("Y-m-d H:i:s",$users['data']);?> <br>
+                        介绍：<?php echo $users['js'];?>
+
+					</div>
+		</td></tr>
+
+<?php } ?>
+
+
+
+
+    </table>
+    <table width="60%" align="right">
+        <tr><td><div id="barcon" name="barcon"></div></td></tr>
+    </table>
+
+
+</table>
+	<!-- end product -->
+    <table width="60%" align="right">
+        <tr><td><div id="barcon" name="barcon"></div></td></tr>
+    </table>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/materialize.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/main.js"></script>
+
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+function goPage(pno,psize){
+    var itable = document.getElementById("idData");
+    var num = itable.rows.length;//表格所有行数(所有记录数)
+    console.log(num);
+    var totalPage = 0;//总页数
+    var pageSize = psize;//每页显示行数
+    //总共分几页 
+    if(num/pageSize > parseInt(num/pageSize)){   
+            totalPage=parseInt(num/pageSize)+1;   
+       }else{   
+           totalPage=parseInt(num/pageSize);   
+       }   
+    var currentPage = pno;//当前页数
+    var startRow = (currentPage - 1) * pageSize+1;//开始显示的行  31 
+       var endRow = currentPage * pageSize;//结束显示的行   40
+       endRow = (endRow > num)? num : endRow;    40
+       console.log(endRow);
+       //遍历显示数据实现分页
+    for(var i=1;i<(num+1);i++){    
+        var irow = itable.rows[i-1];
+        if(i>=startRow && i<=endRow){
+            irow.style.display = "block";    
+        }else{
+            irow.style.display = "none";
+        }
+    }
+    var pageEnd = document.getElementById("pageEnd");
+    var tempStr = "共"+num+"张照片 共"+totalPage+"页 当前第"+currentPage+"页";
+    if(currentPage>1){
+        tempStr += "<a href=\"#\" onClick=\"goPage("+(1)+","+psize+")\">首页</a>";
+        tempStr += "<a href=\"#\" onClick=\"goPage("+(currentPage-1)+","+psize+")\"><上一页</a>"
+    }else{
+        tempStr += "首页";
+        tempStr += "<上一页";    
+    }
+
+    if(currentPage<totalPage){
+        tempStr += "<a href=\"#\" onClick=\"goPage("+(currentPage+1)+","+psize+")\">下一页></a>";
+        tempStr += "<a href=\"#\" onClick=\"goPage("+(totalPage)+","+psize+")\">尾页</a>";
+    }else{
+        tempStr += "下一页>";
+        tempStr += "尾页";    
+    }
+
+    document.getElementById("barcon").innerHTML = tempStr;
+    
+}
+    
+</script>
